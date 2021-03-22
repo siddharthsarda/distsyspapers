@@ -25,6 +25,20 @@ They are rather around
 
 The other concern mentioned is the difference in memory access between local and distributed computing. 
 
-1. Reading this section really made me think of GraphQL and of all the proponents of Graphs all the way down. 
-2. N + 1 Query problem or machine gun queries are a good example.
-3. This actually holds true very well. Status codes exist for both http and grpc communication methods. Service meshes have evolved to make the concerns of remote communication even simpler.  
+The paper goes on to discuss the NFS filesystem as a way to illustrate the difficulties in working with distributed systems. NFS implements the same API as a non distributed file system (open, read, write, close). While in non distributed file systems, failures (disk full, crash) are rare, in NFS this is something actively to be dealt with. NFS has two ways of dealing with an inaccessible file server.
+
+* Soft Mounts: In this mode, network or server failure is exposed to the client.
+* Hard Mounts: In this mode the application hangs until the server failure is resolved.
+
+As an observation even then you could see the tradeoffs between safety (nothing bad ever happens) and liveness (something good eventually happens). Also you can clearly see that network failures or partition (as described in CAP theorem) is unavoidable. Surprisingly at that time, the preferred option was to use the hard mount option, which often required the intervention of a human actor to resolve issues.
+
+The paper exhorts to take the differences between distributed computing and local computing seriously by giving distributed objects the special attention that they require.
+
+### My Observations
+
+It’s an approachable read. You could also see how even some of the current developments (for example service meshes) are an attempt to tackle the same difficulties in distributed systems that are raised in the paper. It also illustrates the problems in distributed computing with an example of NFS. It’s interesting that you could see the tug of war between safety and liveness even then. Fairly quick easy read.
+
+
+[1] Reading this section really made me think of GraphQL and of all the proponents of Graphs all the way down. 
+[2] N + 1 Query problem or machine gun queries are a good example.
+[3] This actually holds true very well. Status codes exist for both http and grpc communication methods. Service meshes have evolved to make the concerns of remote communication even simpler.  
